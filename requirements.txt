@@ -1,0 +1,10 @@
+dvc
+scikit-learn
+pandas
+PyYAML
+matplotlib
+numpy 
+seaborn
+ipykernel
+jupyter
+joblib

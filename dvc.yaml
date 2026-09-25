@@ -1,0 +1,47 @@
+
+stages:
+  load_data:
+    cmd: python src/data_load.py
+    deps:
+      - src/data_load.py
+      - data/raw/data.csv
+    outs:
+      - data/processed/data.csv
+
+  preprocess:
+    cmd: python src/preprocess.py
+    deps:
+      - src/preprocess.py
+      - data/processed/data.csv
+    outs:
+      - data/processed/train.csv
+      - data/processed/test.csv  
+  
+  train:
+    cmd: python src/train.py
+    deps:
+      - src/train.py
+      - data/processed/train.csv
+    params:
+      - train
+    outs:
+      - model.pkl      
+
+  
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+      - src/evaluate.py
+      - model.pkl
+      - data/processed/test.csv
+    metrics:
+      - metrics.json      
+  feature_importance:
+    cmd: python src/feature_importance.py
+    deps:
+      - src/feature_importance.py
+      - model.pkl
+      - data/processed/train.csv
+    outs:
+      - reports/top_10_feature_importance.csv    
+
