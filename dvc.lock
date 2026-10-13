@@ -59,15 +59,15 @@ stages:
     params:
       params.yaml:
         train:
-          n_estimators: 300
+          n_estimators: 400
           max_depth: 10
           min_samples_split: 2
           random_state: 42
     outs:
     - path: model.pkl
       hash: md5
-      md5: af4eaa702cf88463371623d7b6e7f025
-      size: 939295
+      md5: 4eb0437af86bfa87c6d30e947fa90b2e
+      size: 1256191
       isexec: true
   evaluate:
     cmd: python src/evaluate.py
@@ -79,8 +79,8 @@ stages:
       isexec: true
     - path: model.pkl
       hash: md5
-      md5: af4eaa702cf88463371623d7b6e7f025
-      size: 939295
+      md5: 4eb0437af86bfa87c6d30e947fa90b2e
+      size: 1256191
       isexec: true
     - path: src/evaluate.py
       hash: md5
@@ -90,8 +90,8 @@ stages:
     outs:
     - path: metrics.json
       hash: md5
-      md5: 1bf255872d3e2075ec98df19f055dd03
-      size: 180
+      md5: 598a856dffa0eed476cc5463b9247741
+      size: 178
       isexec: true
   feature_importance:
     cmd: python src/feature_importance.py
@@ -103,17 +103,46 @@ stages:
       isexec: true
     - path: model.pkl
       hash: md5
-      md5: af4eaa702cf88463371623d7b6e7f025
-      size: 939295
+      md5: 4eb0437af86bfa87c6d30e947fa90b2e
+      size: 1256191
       isexec: true
     - path: src/feature_importance.py
       hash: md5
-      md5: 86b38856c7c57a4cf75e84c70e06cda0
-      size: 1199
+      md5: e2a7d7e440657f704ad1fb02a7ef7fbd
+      size: 1339
       isexec: true
     outs:
     - path: reports/top_10_feature_importance.csv
       hash: md5
-      md5: 4bc740ffe2445559b33a8273e685f486
-      size: 368
+      md5: 36a5eb03a3f0a9b6b2bfc072c290fc2c
+      size: 362
+      isexec: true
+  error_analysis:
+    cmd: python src/error_analysis.py
+    deps:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: a0864871521c5b0a3859dc0e54ccbc29
+      size: 24681
+      isexec: true
+    - path: model.pkl
+      hash: md5
+      md5: 4eb0437af86bfa87c6d30e947fa90b2e
+      size: 1256191
+      isexec: true
+    - path: src/error_analysis.py
+      hash: md5
+      md5: c85c7f47395bee7d21251c23c35d81e5
+      size: 1339
+      isexec: true
+    outs:
+    - path: confusion_matrix.png
+      hash: md5
+      md5: 5b94850327d593b6ca5b11f6eb2ce499
+      size: 36707
+      isexec: true
+    - path: errors.csv
+      hash: md5
+      md5: 0d0a6520f2bf648ec4ba854265596294
+      size: 1627
       isexec: true

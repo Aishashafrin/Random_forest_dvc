@@ -51,6 +51,12 @@ def main():
     print(top_10.to_string(index=False))
     print("Saved to:", OUTPUT_PATH)
 
+# 9. Display results
+    print("Top 10 Feature Importance:")
+    print(top_10.to_string(index=False))
+
+    print("Saved to:", OUTPUT_PATH)
+
 
 if __name__ == "__main__":
     main()
